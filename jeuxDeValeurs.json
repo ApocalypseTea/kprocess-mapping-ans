@@ -1,0 +1,12 @@
+{
+    "profile": "FicheRCP",
+    "version": "2025.1",
+    "baseDir": "D:\\Data\\ReseauOnco\\AAP",
+    "jeuxDeValeursANS": [
+        { "file": "jdv-morphologie-cisis.xml" },
+        { "file": "JDV_J246_Titre_CISIS.xml" }        
+    ],
+    "mappings": [
+        { "file": "titre.json" }
+    ]
+} 

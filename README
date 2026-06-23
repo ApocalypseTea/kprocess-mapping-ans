@@ -1,0 +1,54 @@
+# Description des fichiers / répertoires
+- JeuxDeValeurs : répertoire contenant les jeux de valeur tel que fourni par l'ANS, au format XML
+- Mappings : répertoire contenant le mapping entre les jeux de valeurs de l'ANS et ceux de KProcess
+
+## fichier jeuxDeValeurs.json
+
+fichier indiquant les jeux de valeurs à charger, ainsi que les mappgins à considérer.
+
+Le fichier indiquera le profil (Fiche RCP, PPS, CR-AP, etc.) ainsi que la version utilisée 
+
+Le chemin "baseDir" permet de préciser où les données sont stockées.
+
+Les "jeuxDeValeursANS" et "mappgins" indique les fichiers à considérer, respectivement pour les jeux de valeur de l'ANS et pour les mappgins dans K-Process. 
+Les fichiers doivent être dans les répertoires correspondants sous le répertoire précisé dans "baseDir"
+
+## Fichier ANS
+
+Fichiers XML tel que fourni par l'ANS. Cf. Documentation ANS pour plus de détails
+
+## Fichier Mapping
+
+Chaque fichier est un fichier JSON qui contient les informations suivantes :
+
+{
+    "name": "Nom" // Nom technique du mapping. Aucun lien autre que sémantique avec le mapping considéré. De préférence, le nom devrait reprendre le nom du fichier dans lequel le mapping est fait",
+    "description": "Information juste descriptive, pour donner des informations utiles liés au mapping si besoin est",
+    "tableName": "schema.table", // : table K-Process contenant les informations",
+    "jeuDeValeursANS": "NomJeuValeurANS", // Ju de valeurs ANS auquel est mappé l'énumération K-Process
+    "ignoresValues": [
+        {"code": "PC", "codeSystem": "1.2.250.1.213.1.6.1.11"},
+        {"code": "PG", "codeSystem": "1.2.250.1.213.1.6.1.11"},
+        // etc. Valeur du jeu de valeurs à ignorer en cas de mapping entrant (import)
+    ],
+    "mapping": [
+        {
+            "kprocess": "value", // valeur de la colonne "value" dans la table K-Process. 
+            "code": "DR", // code du jeu de valeur ANS, utilisé en import & export
+            "codeSystem": "1.2.250.1.213.1.6.1.11", // codeSystem du jeu de valeur ANS, utilisé en import & export
+            "additionalValues": [ // des valeurs additionnels qui seront utilisées en cas d'import
+                {"code": "MC", "codeSystem": "1.2.250.1.213.1.6.1.11"},
+                {"code": "MG", "codeSystem": "1.2.250.1.213.1.6.1.11"}
+            ]
+        },
+        {
+            "kprocess": "Professeur",
+            "code": "PR",
+            "codeSystem": "1.2.250.1.213.1.6.1.11"
+        },
+        {
+            "kprocess": "Interne",
+            "ignore": true // indique que la valeur est ignorée. Cas lorsque le jeu de valeur K-Process est plus riche que le jeu de valeur initial, sans aucune correspondance du tout, même sémantiquement plus faible
+        },
+  ]
+}
