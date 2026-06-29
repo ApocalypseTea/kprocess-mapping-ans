@@ -1,0 +1,78 @@
+{
+  "name": "Appareil",
+  "description": "Appareil touché par le cancer",
+  "tableName": "dbo.tumeurs_appareils",
+  "jeuDeValeursANS": "jdv-rcp-appareil-cisis",
+  "mapping": [
+    {
+      "kprocess": "VADS",
+      "code": "119253004",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "AppareilDigestif",
+      "code": "86762007",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "AppareilRespiratoireEtAutresThorax",
+      "code": "312419003",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "GlandesEndocrines",
+      "code": "387910009",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Hematologie",
+      "code": "57171008",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Oeil",
+      "code": "81745001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "OrganesGenitauxFeminins",
+      "code": "53065001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "OrganesGenitauxMasculins",
+      "code": "90264002",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Os",
+      "code": "272673000",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Peau",
+      "code": "39937001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Sein",
+      "code": "76752008",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "SystemeNerveux",
+      "code": "25087005",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "TissusMousNonClassesAilleurs",
+      "code": "87784001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "VoiesUrinaires",
+      "code": "122489005",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    }
+  ]
+}

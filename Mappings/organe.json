@@ -1,0 +1,315 @@
+{
+  "name": "Organe",
+  "description": "Organe touché par le Cancer",
+  "tableName": "dbo.tumeurs_organes",
+  "jeuDeValeursANS": "jdv-rcp-organe-cisis",
+  "mapping": [
+    {
+      "kprocess": "Levre",
+      "code": "48477009",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Langue",
+      "code": "21974007",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "CaviteOrale",
+      "code": "74262004",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "GlandesSalivaires",
+      "code": "385294005",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "FossesNasalesSinusOreille",
+      "code": "MED-237",
+      "codeSystem": "1.2.250.1.213.1.1.4.322"
+    },
+    {
+      "kprocess": "Larynx",
+      "code": "4596009",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Pharynx",
+      "code": "54066008",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "VADSSansPrecision",
+      "code": "119253004",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Oesophage",
+      "code": "32849002",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Estomac",
+      "code": "69695003",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "IntestinGrele",
+      "code": "30315005",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "ColonRectumAnus",
+      "code": "MED-251",
+      "codeSystem": "1.2.250.1.213.1.1.4.322"
+    },
+    {
+      "kprocess": "FoieEtVoiesBiliaires",
+      "code": "303270005",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Pancreas",
+      "code": "15776009",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "PeritoineRetroperitoine",
+      "code": "C12664",
+      "codeSystem": "2.16.840.1.113883.3.26.1.1"
+    },
+    {
+      "kprocess": "AppareilDigestifSansPrecision",
+      "code": "86762007",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "TracheeBronchesPoumon",
+      "code": "MED-255",
+      "codeSystem": "1.2.250.1.213.1.1.4.322"
+    },
+    {
+      "kprocess": "Mediastin",
+      "code": "72410000",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Plevre",
+      "code": "3120008",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "AppareilRespiratoireThoraxSansPrecision",
+      "code": "312419003",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "Surrenale",
+      "code": "23451007",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "Thyroide",
+      "code": "69748006",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "GlandeEndocrineSansPrecision",
+      "code": "387910009",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "LeucemieLymphoideAigue",
+      "code": "C91.0",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "LeucemieMyeloideAigue",
+      "code": "C92",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "LeucemieMonocytaireAigue",
+      "code": "",
+      "codeSystem": ""
+
+    },
+    {
+      "kprocess": "LeucemieAigueAutre",
+      "code": "C95.0",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "LeucemieLymphoideChroniqueNonPrecise",
+      "code": "C91.1",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "LeucemieMonocytaireChroniqueNonPrecise",
+      "code": "C93.0",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "LeucemieMyeloideChroniqueNonPrecise",
+      "code": "C92.1",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "LeucemieChroniqueNonPrecise",
+      "code": "C95.1",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "LymphomeHodgkinien",
+      "code": "C81",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "LymphomeNonHodgkinien",
+      "code": "C85",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "MaladieImmunoproliferativeMaligne",
+      "code": "C88",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "MaladieMyeloproliferativeSyndromeMyelodysplasique",
+      "code": "C94.6",
+      "codeSystem": "2.16.840.1.113883.6.3"
+    },
+    {
+      "kprocess": "MyelomeMultipleTumeurMaligneAPlasmocytes",
+      "code": "C90.0",
+      "codeSystem": "2.16.840.1.113883.6.3"
+
+    },
+    {
+      "kprocess": "HematologieSansPrecision",
+      "code": "57171008",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "Oeil",
+      "code": "81745001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "ColUterus",
+      "code": "71252005",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "CorpsUterus",
+      "code": "23952005",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "Ovaire",
+      "code": "15497006",
+      "codeSystem": "2.16.840.1.113883.6.96"
+
+    },
+    {
+      "kprocess": "VulveVagin",
+      "code": "C94529",
+      "codeSystem": "2.16.840.1.113883.3.26.1.1"
+    },
+    {
+      "kprocess": "OrganesGenitauxFemininsSansPrecision",
+      "code": "53065001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Penis",
+      "code": "18911002",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Prostate",
+      "code": "41216001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Testicule",
+      "code": "40689003",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "OrganesGenitauxMasculinsSansPrecision",
+      "code": "90264002",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "OsArticulationsCartilageArticulaire",
+      "code": "306721000",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Peau",
+      "code": "39937001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Sein",
+      "code": "76752008",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "NerfsPeripheriques",
+      "code": "84782009",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "SystemeNerveuxCentral",
+      "code": "21483005",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "TissusMousNonClassesAilleurs",
+      "code": "87784001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Rein",
+      "code": "64033007",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "VoiesUrinairesHautes",
+      "code": "431491007",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    }
+    {
+      "kprocess": "Vessie",
+      "code": "89837001",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    }
+    {
+      "kprocess": "AppareilUrinaireSansPrecision",
+      "code": "122489005",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    }
+  ]
+}

@@ -2,11 +2,27 @@
     "profile": "FicheRCP",
     "version": "2025.1",
     "baseDir": "D:\\Data\\ReseauOnco\\AAP",
-    "jeuxDeValeursANS": [
-        { "file": "jdv-morphologie-cisis.xml" },
-        { "file": "JDV_J246_Titre_CISIS.xml" }        
-    ],
+  "jeuxDeValeursANS": [
+    { "file": "jdv-modificateur-topographique-cisis.xml" },
+    { "file": "jdv-morphologie-cisis.xml" },
+    { "file": "jdv-phase-cancer-cisis.xml" },
+    { "file": "jdv-rcp-appareil-cisis.xml" },
+    { "file": "jdv-rcp-organe-cisis.xml" },
+    { "file": "jdv-score-performance-ecog-cisis.xml" },
+    { "file": "jdv-statut-cas-presente-cisis.xml" },
+    { "file": "jdv-traitement-soins-frcp-cisis.xml" },
+    { "file": "jdv-tumeur-cisis.xml" },
+    { "file": "jdv-type-traitement-frcp-cisis.xml" },
+    { "file": "JDV_J01_XdsAuthorSpecialty_CISIS.xml" },
+    { "file": "JDV_J02_XdsHealthcareFacilityTypeCode_CISIS.xml" },
+    { "file": "JDV_J04_XdsPracticeSettingCode_CISIS.xml" },
+    { "file": "JDV_J143_AdministrativeGender_CISIS.xml" },
+    { "file": "JDV_J246_Titre_CISIS.xml" }
+  ],
     "mappings": [
-        { "file": "titre.json" }
+      { "file": "titre.json" },
+      { "file": "phaseCancer.json" },
+      { "file": "appareil.json" },
+      { "file": "organe.json"}
     ]
 } 

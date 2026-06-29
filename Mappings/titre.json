@@ -1,7 +1,7 @@
 {
     "name": "Titre",
     "description": "Titre pour les professionnels de santé",
-    "tableName": "profil_professionnel_sante_titre_enum",
+    "tableName": "account.profil_professionnel_sante_titre_enum",
     "jeuDeValeursANS": "JDV_J246_Titre_CISIS",
     "ignoresValues": [
         {"code": "PC", "codeSystem": "1.2.250.1.213.1.6.1.11"},
