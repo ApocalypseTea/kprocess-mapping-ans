@@ -29,6 +29,7 @@
       { "file": "specialiteMedicale.json" },
       { "file": "etablissementTypeCode.json" },
       { "file": "etablissementPracticeSettings.json" },
-      { "file": "genre.json"}
+      { "file": "genre.json" },
+      { "file": "tumeur.json"}
     ]
 } 
