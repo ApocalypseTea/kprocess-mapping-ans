@@ -1,0 +1,343 @@
+{
+  "name": "Specialité Médicale",
+  "description": "Spécialité du professionnel de Santé",
+  "tableName": "account.profil_professionnel_sante_specialite_enum",
+  "jeuDeValeursANS": "JDV_J01_XdsAuthorSpecialty_CISIS",
+  "mapping": [
+    {
+      "kprocess": "G15_10/SM54",
+      "code": "G15_10/SM54",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM01",
+      "code": "G15_10/SM01",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM02",
+      "code": "G15_10/SM02",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/C35",
+      "code": "G15_10/C35",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM04",
+      "code": "G15_10/SM04",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM05",
+      "code": "G15_10/SM05",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM06",
+      "code": "G15_10/SM06",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM09",
+      "code": "G15_10/SM09",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM10",
+      "code": "G15_10/SM10",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM11",
+      "code": "G15_10/SM11",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM15",
+      "code": "G15_10/SM15",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/C36",
+      "code": "G15_10/C36",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM16",
+      "code": "G15_10/SM16",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM19",
+      "code": "G15_10/SM19",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM20",
+      "code": "G15_10/SM20",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM24",
+      "code": "G15_10/SM24",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM21",
+      "code": "G15_10/SM21",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM25",
+      "code": "G15_10/SM25",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCH33",
+      "code": "G15_10/SM58",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM27",
+      "code": "G15_10/SM27",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/C40",
+      "code": "G15_10/C40",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM28",
+      "code": "G15_10/SM28",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM30",
+      "code": "G15_10/SM30",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM31",
+      "code": "G15_10/SM31",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM32",
+      "code": "G15_10/SM32",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM33",
+      "code": "G15_10/SM33",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM38",
+      "code": "G15_10/SM38",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM39",
+      "code": "G15_10/SM39",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM40",
+      "code": "G15_10/SM40",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM41",
+      "code": "G15_10/SM41",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM42",
+      "code": "G15_10/SM42",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM43",
+      "code": "G15_10/SM43",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM44",
+      "code": "G15_10/SM44",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM46",
+      "code": "G15_10/SM46",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM29",
+      "code": "G15_10/SM29",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM48",
+      "code": "G15_10/SM48",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM12",
+      "code": "G15_10/SM12",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM45",
+      "code": "G15_10/SM45",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM08",
+      "code": "G15_10/SM08",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM49",
+      "code": "G15_10/SM49",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM13",
+      "code": "G15_10/SM13",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCH52",
+      "code": "",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCH04",
+      "code": "",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCH03",
+      "code": "",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM17",
+      "code": "G15_10/SM17",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCH36",
+      "code": "",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM14",
+      "code": "G15_10/SM14",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM50",
+      "code": "G15_10/SM50",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCH51",
+      "code": "",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCH22",
+      "code": "",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM03",
+      "code": "G15_10/SM03",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM07",
+      "code": "G15_10/SM07",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/C05",
+      "code": "G15_10/C05",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/C34",
+      "code": "G15_10/C34",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/C33",
+      "code": "G15_10/C33",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM37",
+      "code": "G15_10/SM37",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM36",
+      "code": "G15_10/SM36",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/DSM235",
+      "code": "G15_10/DSM235",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM18",
+      "code": "G15_10/SM18",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCD01",
+      "code": "G15_10/SCD01",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM34",
+      "code": "G15_10/SM34",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/C13",
+      "code": "G15_10/C13",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM35",
+      "code": "G15_10/SM35",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCH46",
+      "code": "",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SCH55",
+      "code": "",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_40/SCD02",
+      "code": "G15_40/SCD02",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    },
+    {
+      "kprocess": "G15_10/SM20",
+      "code": "G15_10/SM20",
+      "codeSystem": "1.2.250.1.213.1.1.4.5"
+    }
+  ]
+}

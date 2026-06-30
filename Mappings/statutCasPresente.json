@@ -1,0 +1,18 @@
+{
+  "name": "StatutCasPresente",
+  "description": "Statut du cas présenté en RCP",
+  "tableName": "dbo.fiches_rcp_type_dossier_enum",
+  "jeuDeValeursANS": "jdv-statut-cas-presente-cisis",
+  "mapping": [
+    {
+      "kprocess": "EnregistrementSimple",
+      "code": "ORG-128",
+      "codeSystem": "1.2.250.1.213.1.1.4.322"
+    },
+    {
+      "kprocess": "DiscuteEnRCP",
+      "code": "ORG-134",
+      "codeSystem": "1.2.250.1.213.1.1.4.322"
+    }
+  ]
+}

@@ -78,7 +78,9 @@
          <Concept code="SA21"
                   codeSystem="1.2.250.1.71.4.2.4"
                   displayName="Etablissement d'hébergement et de réadaptation"/>
-         <Concept code="SA22" codeSystem="1.2.250.1.71.4.2.4" displayName="Recherche"/>
+         <Concept code="SA22" 
+				  codeSystem="1.2.250.1.71.4.2.4" 
+		          displayName="Recherche"/>
          <Concept code="SA23"
                   codeSystem="1.2.250.1.71.4.2.4"
                   displayName="Assurance privée"/>

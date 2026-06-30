@@ -1,0 +1,38 @@
+{
+  "name": "Score OMS",
+  "description": "Indice de performance status (O.M.S.)",
+  "tableName": "dbo.fiches_rcp_v1_capacite_oms_enum",
+  "jeuDeValeursANS": "jdv-score-performance-ecog-cisis",
+  "mapping": [
+    {
+      "kprocess": "OMS_0",
+      "code": "LA9622-7",
+      "codeSystem": "2.16.840.1.113883.6.1"
+    },
+    {
+      "kprocess": "OMS_1",
+      "code": "LA9623-5",
+      "codeSystem": "2.16.840.1.113883.6.1"
+    },
+    {
+      "kprocess": "OMS_2",
+      "code": "LA9624-3",
+      "codeSystem": "2.16.840.1.113883.6.1"
+    },
+    {
+      "kprocess": "OMS_3",
+      "code": "LA9625-0",
+      "codeSystem": "2.16.840.1.113883.6.1"
+    },
+    {
+      "kprocess": "OMS_4",
+      "code": "LA9626-8",
+      "codeSystem": "2.16.840.1.113883.6.1"
+    },
+    {
+      "kprocess": "OMS_5",
+      "code": "LA9627-6",
+      "codeSystem": "2.16.840.1.113883.6.1"
+    }
+  ]
+}

@@ -23,6 +23,12 @@
       { "file": "titre.json" },
       { "file": "phaseCancer.json" },
       { "file": "appareil.json" },
-      { "file": "organe.json"}
+      { "file": "organe.json" },
+      { "file": "scoreOMS.json" },
+      { "file": "statutCasPresente.json" },
+      { "file": "specialiteMedicale.json" },
+      { "file": "etablissementTypeCode.json" },
+      { "file": "etablissementPracticeSettings.json" },
+      { "file": "genre.json"}
     ]
 } 

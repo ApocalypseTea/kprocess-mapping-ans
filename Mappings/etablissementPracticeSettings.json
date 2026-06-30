@@ -1,0 +1,54 @@
+{
+  "name": "Etablissement Practice Settings",
+  "description": "Codes des Practice Settings correspondants aux établissements",
+  "tableName": "dbo.etablissements_practice_settings_enum",
+  "jeuDeValeursANS": "JDV_J04_XdsPracticeSettingCode_CISIS",
+  "mapping": [
+    {
+      "kprocess": "AMBULATOIRE",
+      "code": "AMBULATOIRE",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
+    },
+    {
+      "kprocess": "DEPISTAGE",
+      "code": "DEPISTAGE",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
+    },
+    {
+      "kprocess": "MAD",
+      "code": "MAD",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
+    },
+    {
+      "kprocess": "SAD",
+      "code": "SAD",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
+    },
+    {
+      "kprocess": "HAD",
+      "code": "HAD",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
+    },
+    {
+      "kprocess": "ETABLISSEMENT",
+      "code": "ETABLISSEMENT",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
+    },
+    {
+      "kprocess": "PALLIATIF",
+      "code": "PALLIATIF",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
+    },
+    {
+      "kprocess": "SAMU_SMUR",
+      "code": "SAMU_SMUR",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
+    },
+    {
+      "kprocess": "EXP_PATIENT",
+      "code": "EXP_PATIENT",
+      "codeSystem": "1.2.250.1.213.1.1.4.6"
+    }
+
+  ]
+}

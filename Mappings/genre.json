@@ -1,0 +1,23 @@
+{
+  "name": "Genre",
+  "description": "Genre administratif du patient",
+  "tableName": "core.sexe_enum",
+  "jeuDeValeursANS": "JDV_J143_AdministrativeGender_CISIS",
+  "mapping": [
+    {
+      "kprocess": "Homme",
+      "code": "M",
+      "codeSystem": "2.16.840.1.113883.5.1"
+    },
+    {
+      "kprocess": "Femme",
+      "code": "F",
+      "codeSystem": "2.16.840.1.113883.5.1"
+    },
+    {
+      "kprocess": "Indetermine",
+      "code": "UN",
+      "codeSystem": "2.16.840.1.113883.5.1"
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "name": "Etablissement TypeCode",
+  "description": "Type Code identifiant le type d'etablissement de santé",
+  "tableName": "dbo.etablissements_type_enum",
+  "jeuDeValeursANS": "JDV_J02_XdsHealthcareFacilityTypeCode_CISIS",
+  "mapping": [
+    {
+      "kprocess": "SA01",
+      "code": "SA01",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA02",
+      "code": "SA02",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA03",
+      "code": "SA03",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA04",
+      "code": "SA04",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA05",
+      "code": "SA05",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA06",
+      "code": "SA06",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA07",
+      "code": "SA07",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA08",
+      "code": "SA08",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA09",
+      "code": "SA09",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA10",
+      "code": "SA10",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA12",
+      "code": "SA12",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA13",
+      "code": "SA13",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA14",
+      "code": "SA14",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA15",
+      "code": "SA15",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA16",
+      "code": "SA16",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA17",
+      "code": "SA17",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA18",
+      "code": "SA18",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA19",
+      "code": "SA19",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA20",
+      "code": "SA20",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA21",
+      "code": "SA21",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA22",
+      "code": "SA22",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA23",
+      "code": "SA23",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA24",
+      "code": "SA24",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA25",
+      "code": "SA25",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA26",
+      "code": "SA26",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA27",
+      "code": "SA27",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA28",
+      "code": "SA28",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA29",
+      "code": "SA29",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA30",
+      "code": "SA30",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA31",
+      "code": "SA31",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA32",
+      "code": "SA32",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA33",
+      "code": "SA33",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA34",
+      "code": "SA34",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA35",
+      "code": "SA35",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA36",
+      "code": "SA36",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA37",
+      "code": "SA37",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA38",
+      "code": "SA38",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA39",
+      "code": "SA39",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA40",
+      "code": "SA40",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA41",
+      "code": "SA41",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA42",
+      "code": "SA42",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA43",
+      "code": "SA43",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    
+    {
+      "kprocess": "SA45",
+      "code": "SA45",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA46",
+      "code": "SA46",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA47",
+      "code": "SA47",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA48",
+      "code": "SA48",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA49",
+      "code": "SA49",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA50",
+      "code": "SA50",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA51",
+      "code": "SA51",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA52",
+      "code": "SA52",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "SA54",
+      "code": "SA54",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    }
+  ]
+}
