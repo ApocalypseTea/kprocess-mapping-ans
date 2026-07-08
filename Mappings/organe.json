@@ -300,12 +300,12 @@
       "kprocess": "VoiesUrinairesHautes",
       "code": "431491007",
       "codeSystem": "2.16.840.1.113883.6.96"
-    }
+    },
     {
       "kprocess": "Vessie",
       "code": "89837001",
       "codeSystem": "2.16.840.1.113883.6.96"
-    }
+    },
     {
       "kprocess": "AppareilUrinaireSansPrecision",
       "code": "122489005",
