@@ -55,6 +55,11 @@
       "codeSystem": "1.2.250.1.71.4.2.4"
     },
     {
+      "kprocess": "SA11",
+      "code": "",
+      "codeSystem": ""
+    },
+    {
       "kprocess": "SA12",
       "code": "SA12",
       "codeSystem": "1.2.250.1.71.4.2.4"
@@ -214,7 +219,11 @@
       "code": "SA43",
       "codeSystem": "1.2.250.1.71.4.2.4"
     },
-    
+    {
+      "kprocess": "",
+      "code": "SA44",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
     {
       "kprocess": "SA45",
       "code": "SA45",
@@ -256,9 +265,19 @@
       "codeSystem": "1.2.250.1.71.4.2.4"
     },
     {
-      "kprocess": "SA54",
-      "code": "SA54",
+      "kprocess": "",
+      "code": "SA53",
       "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
+      "kprocess": "",
+      "code": "EXP_PATIENT",
+      "codeSystem": "1.2.250.1.213.1.1.4.6"
+    },
+    {
+      "kprocess": "",
+      "code": "SNR",
+      "codeSystem": "1.2.250.1.213.1.1.4.6"
     }
   ]
 }
