@@ -270,6 +270,11 @@
       "codeSystem": "1.2.250.1.71.4.2.4"
     },
     {
+      "kprocess": "SA54",
+      "code": "SA53",
+      "codeSystem": "1.2.250.1.71.4.2.4"
+    },
+    {
       "kprocess": "",
       "code": "EXP_PATIENT",
       "codeSystem": "1.2.250.1.213.1.1.4.6"
