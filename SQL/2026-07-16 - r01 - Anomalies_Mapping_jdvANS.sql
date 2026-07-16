@@ -33,12 +33,11 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 		DECLARE @jdvANS AS NVARCHAR (MAX);
 		DECLARE @jsonCursor AS NVARCHAR (MAX);
 		DECLARE @pathJSON AS NVARCHAR (MAX);
+		DECLARE @pathJSONfile AS NVARCHAR(MAX);
 		DECLARE @pathXML AS NVARCHAR(MAX);
+		DECLARE @pathXMLfile AS NVARCHAR(MAX);
 		DECLARE @MonXml AS NVARCHAR(MAX);
-		--A RETIRER POUR PASSER EN PROCEDURE STOCKEE
-		--DECLARE @server AS SYSNAME;
-		--SET @server = 'OncoPC_DCC_test';
-		---------------------------------------------
+
 		DROP TABLE IF EXISTS #anomalies;
 		CREATE TABLE #anomalies (
 			profil              NVARCHAR (MAX),
@@ -69,11 +68,12 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 			x_code_system NVARCHAR(500)
 		);
 
-		SELECT @json = BulkColumn 
-		--A DECOMMENTER POUR PROCEDURE STOCKEE
-		FROM OPENROWSET(BULK '''+@jsonSource+''', SINGLE_CLOB) AS source;
-		--FROM   OPENROWSET (BULK 'C:\Users\Public\Documents\kprocess-mapping-ans\jeuxDeValeurs.json', SINGLE_CLOB) AS source;
-		---------------------------
+		SET @MonSQL = N'
+			SELECT @json = BulkColumn
+			FROM OPENROWSET(BULK '''+@jsonSource+''', SINGLE_CLOB) AS source';
+
+		EXECUTE sp_executesql @MonSQL, N'@json NVARCHAR(MAX) OUTPUT', @json = @json OUTPUT;
+		
 		--Recuperation des valeurs globales du JSON jeuxDeValeurs et du chemin de chaque fichier de mapping
 		SELECT @profile = profil,
 			   @version = version,
@@ -85,6 +85,8 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 			pathJSON NVARCHAR (MAX) '$.baseDir'
 			);
 
+		SET @pathJSON = @pathJSON + '\kprocess-mapping-ans\Mappings\';
+		SET @pathXML = @pathXML + '\kprocess-mapping-ans\JeuxDeValeurs\';
 		--Creation de curseur pour naviguer dans chaque fichier json de mapping
 		DECLARE foreach CURSOR LOCAL FAST_FORWARD
 			FOR SELECT fichier
@@ -96,30 +98,25 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 
 		WHILE @@FETCH_STATUS = 0
 			BEGIN
-				--A DECOMMENTER POUR PASSER EN PROCEDURE STOCKEE----------------------------------------------
-				SET @pathJSON = @pathJSON + '\kprocess-mapping-ans\Mappings\' + @nomDeFichierJSON;
-				--SET @pathJSON = 'C:\Users\Public\Documents\kprocess-mapping-ans\Mappings\' + @nomDeFichierJSON;
-				----------------------------------------------------------------------------------------------
+				SET @pathJSONfile = @pathJSON + @nomDeFichierJSON;
 				--Lecture du fichier JSON specifique à chaque jeu de valeur
 				SET @MonSQL = N'SELECT @jsonCursor = BulkColumn
-							FROM OPENROWSET(BULK ''' + @pathJSON + ''', SINGLE_CLOB) AS sourceJSON';
+							FROM OPENROWSET(BULK ''' + @pathJSONfile + ''', SINGLE_CLOB) AS sourceJSON';
 				EXECUTE sp_executesql @MonSQL, N'@jsonCursor NVARCHAR(MAX) OUTPUT', @jsonCursor = @jsonCursor OUTPUT;
 
 				--Lecture du fichier XML du jeu de valeur associé au JSON
 				SELECT @nomDeFichierXML = fichierXML
 				FROM   OPENJSON (@jsonCursor) WITH (fichierXML NVARCHAR (MAX) '$.jeuDeValeursANS');
 
-				--A DECOMMENTER POUR PASSER EN PROCEDURE STOCKEE----------------------------------------------
-				SET @pathXML = @pathXML + '\kprocess-mapping-ans\JeuxDeValeurs\' + @nomDeFichierXML + '.xml';
-				--SET @pathXML = 'C:\Users\Public\Documents\kprocess-mapping-ans\JeuxDeValeurs\' + @nomDeFichierXML + '.xml';
-				----------------------------------------------------------------------------------------------
+				SET @pathXMLfile = @pathXML + @nomDeFichierXML + '.xml';
+				
 				TRUNCATE TABLE #valeurs_xml_ans;
 
 				--Recuperation des données du jeu de valeur XML dans une tablea temporaire #valeurs_xml_ans
 				SET @MonXml = N'
 					DECLARE @xml XML;
 					SELECT @xml = CAST(BulkColumn AS XML)
-					FROM OPENROWSET(BULK '''+@pathXML+''', SINGLE_BLOB) AS sourceXML;
+					FROM OPENROWSET(BULK '''+@pathXMLfile+''', SINGLE_BLOB) AS sourceXML;
 					WITH XMLNAMESPACES (''urn:ihe:iti:svs:2008'' AS ns)
 					INSERT INTO #valeurs_xml_ans (x_code, x_code_system)
 					SELECT
