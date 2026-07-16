@@ -48,7 +48,21 @@
       "kprocess": "EXP_PATIENT",
       "code": "EXP_PATIENT",
       "codeSystem": "1.2.250.1.213.1.1.4.6"
+    },
+    {
+      "kprocess": "",
+      "code": "SNR",
+      "codeSystem": "1.2.250.1.213.1.1.4.6"
+    },
+    {
+      "kprocess": "",
+      "code": "AMO",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
+    },
+    {
+      "kprocess": "",
+      "code": "ESSMS",
+      "codeSystem": "1.2.250.1.213.1.1.4.9"
     }
-
   ]
 }

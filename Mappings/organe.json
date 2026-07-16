@@ -310,6 +310,11 @@
       "kprocess": "AppareilUrinaireSansPrecision",
       "code": "122489005",
       "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "",
+      "code": "C92.0",
+      "codeSystem": "2.16.840.1.113883.6.3"
     }
   ]
 }
