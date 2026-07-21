@@ -50,5 +50,13 @@ Chaque fichier est un fichier JSON qui contient les informations suivantes :
             "kprocess": "Interne",
             "ignore": true // indique que la valeur est ignorée. Cas lorsque le jeu de valeur K-Process est plus riche que le jeu de valeur initial, sans aucune correspondance du tout, même sémantiquement plus faible
         },
+        {
+            "kprocess": "Interne",
+            "toDelete": true // indique que la valeur doit etre supprimée de la table Kprocess correspondante
+        },
+        {
+            "kprocess": "Interne",
+            "moveTo": "Professeur" // indique que la valeur doit etre sdeplacée vers une autre dans le but de pouvoir supprimer l'ancienne sans risque de perte de données. Le mapping sera fait vers la valeur indiquée dans "moveTo"
+        },
   ]
 }
