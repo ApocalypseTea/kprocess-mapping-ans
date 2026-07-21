@@ -69,8 +69,13 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 		);
 
 		SET @MonSQL = N'
-			SELECT @json = BulkColumn
-			FROM OPENROWSET(BULK '''+@jsonSource+''', SINGLE_CLOB) AS source';
+			DECLARE @jsonBinary VARBINARY(MAX);
+			SELECT @jsonBinary = BulkColumn
+			FROM OPENROWSET(BULK '''+@jsonSource+''', SINGLE_BLOB) AS source;
+			DECLARE @temp TABLE (val VARCHAR(MAX) COLLATE French_100_CI_AS_SC_UTF8);
+            INSERT INTO @temp (val) SELECT @jsonBinary;
+            SELECT @json = CONVERT(NVARCHAR(MAX), val) FROM @temp;					
+			';
 
 		EXECUTE sp_executesql @MonSQL, N'@json NVARCHAR(MAX) OUTPUT', @json = @json OUTPUT;
 		
@@ -100,8 +105,14 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 			BEGIN
 				SET @pathJSONfile = @pathJSON + @nomDeFichierJSON;
 				--Lecture du fichier JSON specifique à chaque jeu de valeur
-				SET @MonSQL = N'SELECT @jsonCursor = BulkColumn
-							FROM OPENROWSET(BULK ''' + @pathJSONfile + ''', SINGLE_CLOB) AS sourceJSON';
+				SET @MonSQL = N'
+					DECLARE @jsonBinary VARBINARY(MAX);
+					SELECT @jsonBinary = BulkColumn
+					FROM OPENROWSET(BULK ''' + @pathJSONfile + ''', SINGLE_BLOB) AS sourceJSON;
+					DECLARE @temp TABLE (val VARCHAR(MAX) COLLATE French_100_CI_AS_SC_UTF8);
+                    INSERT INTO @temp (val) SELECT @jsonBinary;
+                    SELECT @jsonCursor = CONVERT(NVARCHAR(MAX), val) FROM @temp;		
+					';
 				EXECUTE sp_executesql @MonSQL, N'@jsonCursor NVARCHAR(MAX) OUTPUT', @jsonCursor = @jsonCursor OUTPUT;
 
 				--Lecture du fichier XML du jeu de valeur associé au JSON
