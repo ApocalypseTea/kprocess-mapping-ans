@@ -29,7 +29,8 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 		DECLARE @SqlToMap AS NVARCHAR (MAX);
 		DECLARE @SqlToInsert AS NVARCHAR (MAX);
 		DECLARE @SqlExtraValues AS NVARCHAR (MAX);
-		DECLARE @SqlMoveTo AS NVARChAR(MAX);
+		DECLARE @SqlMoveTo AS NVARCHAR(MAX);
+		DECLARE @SqlDoppelganger AS NVARCHAR(MAX);
 		DECLARE @Table AS SYSNAME;
 		DECLARE @JdvAns AS NVARCHAR (MAX);
 		DECLARE @JsonCursor AS NVARCHAR (MAX);
@@ -61,7 +62,8 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 			extra_value         BIT DEFAULT 0,
 			to_insert           BIT DEFAULT 0, 
 			to_delete			BIT DEFAULT 0,
-			move_to				NVARCHAR (MAX)
+			move_to				NVARCHAR (MAX),
+			doppelganger		BIT DEFAULT 0
 		);
 
 		-- Table temporaire pour stocker le contenu du XML
@@ -94,7 +96,9 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 			);
 
 		SET @PathJson = @PathJson + '\Mappings\';
+
 		SET @PathXml = @PathXml + '\JeuxDeValeurs\';
+		
 		--Creation de curseur pour naviguer dans chaque fichier json de mapping
 		DECLARE foreach CURSOR LOCAL FAST_FORWARD
 			FOR SELECT fichier
@@ -138,7 +142,6 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 						concept.value(''@codeSystem'', ''NVARCHAR(500)'')  AS x_code_system
 					FROM @xml.nodes(''/ns:RetrieveValueSetResponse/ns:ValueSet/ns:ConceptList/ns:Concept'') AS ANS(concept);';
 					EXECUTE sp_executesql @MonXml;
-
 
 				--Assignation des valeurs specifiques du JSON aux variables @Table, @JdvAns, @Name et @IgnoredValues
 				SELECT @Table = tableName, @JdvAns = jeuDeValeursANS, @Name = name, @IgnoredValues = ignoredValues
@@ -417,6 +420,49 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 													@JdvAns = @JdvAns,
 													@IgnoredValues = @IgnoredValues;
 
+				SET @SqlDoppelganger = N'
+					WITH recapDoppelganger AS(
+						SELECT 
+							J.j_kprocess,
+							COUNT(*) AS nbDoublon
+						FROM OPENJSON(@JsonCursor, ''$.mapping'') 
+						WITH (
+							j_kprocess NVARCHAR(MAX) ''$.kprocess'',
+							j_code NVARCHAR
+							) AS J
+						GROUP BY J.j_kprocess)
+
+						INSERT INTO #anomalies(profil, version, fichier_json_name, name, table_name, jeux_de_valeurs_name, 
+													j_kprocess,
+													doppelganger)
+								SELECT
+									@Profile,
+									@Version,
+									@NomDeFichierJson, 
+									@Name,
+									@Table, 
+									@JdvAns,
+									j_kprocess,
+									CASE WHEN nbDoublon > 1 THEN 1 ELSE 0 END							
+								FROM recapDoppelganger AS RDG
+								WHERE nbDoublon > 1 AND j_kprocess !='''';
+				';
+
+
+				EXECUTE sp_executesql @SqlDoppelganger, N'@JsonCursor NVARCHAR(MAX),
+													@Profile NVARCHAR(MAX), 
+													@Version NVARCHAR(MAX),
+													@NomDeFichierJson NVARCHAR(MAX), 
+													@Name NVARCHAR(500),
+													@Table SYSNAME, 
+													@JdvAns NVARCHAR(MAX)', 
+													@JsonCursor = @JsonCursor, 
+													@Profile = @Profile,
+													@Version = @Version,
+													@NomDeFichierJson = @NomDeFichierJson,
+													@Name = @Name, 
+													@Table = @Table,  
+													@JdvAns = @JdvAns;
 
 				FETCH NEXT FROM foreach INTO @NomDeFichierJson;
 			END
