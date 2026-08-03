@@ -268,6 +268,7 @@ AS BEGIN
 
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
+		PRINT 'XML : Chargement de ' + @FileName;
 		SET @Sql = 'SELECT @JSON = CONVERT(VARCHAR(MAX), BulkColumn) FROM OPENROWSET(BULK ''' + @BaseDir + '\JeuxDeValeurs\' + @Filename + ''', SINGLE_BLOB) AS B';
 		EXEC sp_executesql @Sql, N'@JSON VARCHAR(MAX) OUTPUT', @JSON = @JSON OUTPUT;
 
@@ -283,6 +284,7 @@ AS BEGIN
 
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
+		PRINT 'JSON : Chargement de ' + @Filename;
 		SET @Sql = 'SELECT @JSON = CONVERT(VARCHAR(MAX), BulkColumn) FROM OPENROWSET(BULK ''' + @BaseDir + '\Mappings\' + @Filename + ''', SINGLE_BLOB) AS B';
 		EXEC sp_executesql @Sql, N'@JSON VARCHAR(MAX) OUTPUT', @JSON = @JSON OUTPUT;
 
