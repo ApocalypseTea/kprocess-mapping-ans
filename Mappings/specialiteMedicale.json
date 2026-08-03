@@ -210,29 +210,9 @@
       "codeSystem": "1.2.250.1.213.1.1.4.5"
     },
     {
-      "kprocess": "G15_10/SCH52",
-      "code": "",
-      "codeSystem": ""
-    },
-    {
-      "kprocess": "G15_10/SCH04",
-      "code": "",
-      "codeSystem": ""
-    },
-    {
-      "kprocess": "G15_10/SCH03",
-      "code": "",
-      "codeSystem": ""
-    },
-    {
       "kprocess": "G15_10/SM17",
       "code": "G15_10/SM17",
       "codeSystem": "1.2.250.1.213.1.1.4.5"
-    },
-    {
-      "kprocess": "G15_10/SCH36",
-      "code": "",
-      "codeSystem": ""
     },
     {
       "kprocess": "G15_10/SM14",
@@ -243,16 +223,6 @@
       "kprocess": "G15_10/SM50",
       "code": "G15_10/SM50",
       "codeSystem": "1.2.250.1.213.1.1.4.5"
-    },
-    {
-      "kprocess": "G15_10/SCH51",
-      "code": "",
-      "codeSystem": ""
-    },
-    {
-      "kprocess": "G15_10/SCH22",
-      "code": "",
-      "codeSystem": ""
     },
     {
       "kprocess": "G15_10/SM03",
@@ -320,65 +290,9 @@
       "codeSystem": "1.2.250.1.213.1.1.4.5"
     },
     {
-      "kprocess": "G15_10/SCH46",
-      "code": "",
-      "codeSystem": ""
-    },
-    {
-      "kprocess": "G15_10/SCH55",
-      "code": "",
-      "codeSystem": ""
-    },
-    {
       "kprocess": "G15_40/SCD02",
       "code": "G15_40/SCD02",
       "codeSystem": "1.2.250.1.213.1.1.4.5"
-    },
-    {
-      "kprocess": "",
-      "code": "ALIM_AM",
-      "codeSystem": "1.2.250.1.213.1.1.4.6"
-    },
-    {
-      "kprocess": "",
-      "code": "DISPOSITIF",
-      "codeSystem": "1.2.250.1.213.1.1.4.6"
-    },
-    {
-      "kprocess": "",
-      "code": "EXP_PATIENT",
-      "codeSystem": "1.2.250.1.213.1.1.4.6"
-    },
-    {
-      "kprocess": "",
-      "code": "SECRETARIAT_MEDICAL",
-      "codeSystem": "1.2.250.1.213.1.1.4.6"
-    },
-    {
-      "kprocess": "",
-      "code": "AUTOMATE",
-      "codeSystem": "1.2.250.1.213.1.1.4.6"
-    },
-    {
-      "kprocess": "",
-      "code": "SNR",
-      "codeSystem": "1.2.250.1.213.1.1.4.6"
-    },
-    {
-      "kprocess": "",
-      "code": "LOGICIEL_DUI",
-      "codeSystem": "1.2.250.1.213.1.1.4.6"
-    },
-    {
-      "kprocess": "",
-      "code": "G15_10",
-      "codeSystem": "1.2.250.1.213.1.1.4.5"
-    },
-    {
-      "kprocess": "",
-      "code": "G15_10/PAC00",
-      "codeSystem": "1.2.250.1.213.1.1.4.5"
     }
-
   ]
 }
