@@ -335,11 +335,6 @@
       "codeSystem": "1.2.250.1.213.1.1.4.5"
     },
     {
-      "kprocess": "G15_10/SM20",
-      "code": "G15_10/SM20",
-      "codeSystem": "1.2.250.1.213.1.1.4.5"
-    },
-    {
       "kprocess": "",
       "code": "ALIM_AM",
       "codeSystem": "1.2.250.1.213.1.1.4.6"

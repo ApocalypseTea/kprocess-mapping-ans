@@ -8,35 +8,36 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
-	--@jsonSource = path du fichier jeuxDeValeurs.json
-	@jsonSource NVARCHAR(500),
-	--@server = par exemple : 'OncoPC_DCC_test'
-	@server SYSNAME
+	--@JsonSource = path du fichier jeuxDeValeurs.json
+	@JsonSource NVARCHAR(500),
+	--@DatabaseName = par exemple : 'OncoPC_DCC_test'
+	@DatabaseName SYSNAME
 
 	AS
 	BEGIN
 
 		SET NOCOUNT ON;
 
-		DECLARE @nomDeFichierJSON AS NVARCHAR (MAX);
-		DECLARE @nomDeFichierXML AS NVARCHAR(MAX);
-		DECLARE @json AS NVARCHAR (MAX);
-		DECLARE @profile AS NVARCHAR (MAX);
-		DECLARE @version AS NVARCHAR (MAX);
-		DECLARE @name AS NVARCHAR (500);
-		DECLARE @ignoredValues AS NVARCHAR(MAX);
-		DECLARE @MonSQL AS NVARCHAR (MAX);
-		DECLARE @SQLtoMap AS NVARCHAR (MAX);
-		DECLARE @SQLtoInsert AS NVARCHAR (MAX);
-		DECLARE @SQLextraValues AS NVARCHAR (MAX);
-		DECLARE @SQLmoveTo AS NVARChAR(MAX);
-		DECLARE @table AS SYSNAME;
-		DECLARE @jdvANS AS NVARCHAR (MAX);
-		DECLARE @jsonCursor AS NVARCHAR (MAX);
-		DECLARE @pathJSON AS NVARCHAR (MAX);
-		DECLARE @pathJSONfile AS NVARCHAR(MAX);
-		DECLARE @pathXML AS NVARCHAR(MAX);
-		DECLARE @pathXMLfile AS NVARCHAR(MAX);
+		DECLARE @NomDeFichierJson AS NVARCHAR (MAX);
+		DECLARE @NomDeFichierXml AS NVARCHAR(MAX);
+		DECLARE @Json AS NVARCHAR (MAX);
+		DECLARE @Profile AS NVARCHAR (MAX);
+		DECLARE @Version AS NVARCHAR (MAX);
+		DECLARE @Name AS NVARCHAR (500);
+		DECLARE @IgnoredValues AS NVARCHAR(MAX);
+		DECLARE @MonSql AS NVARCHAR (MAX);
+		DECLARE @SqlToMap AS NVARCHAR (MAX);
+		DECLARE @SqlToInsert AS NVARCHAR (MAX);
+		DECLARE @SqlExtraValues AS NVARCHAR (MAX);
+		DECLARE @SqlMoveTo AS NVARCHAR(MAX);
+		DECLARE @SqlDoppelganger AS NVARCHAR(MAX);
+		DECLARE @Table AS SYSNAME;
+		DECLARE @JdvAns AS NVARCHAR (MAX);
+		DECLARE @JsonCursor AS NVARCHAR (MAX);
+		DECLARE @PathJson AS NVARCHAR (MAX);
+		DECLARE @PathJsonfile AS NVARCHAR(MAX);
+		DECLARE @PathXml AS NVARCHAR(MAX);
+		DECLARE @PathXmlFile AS NVARCHAR(MAX);
 		DECLARE @MonXml AS NVARCHAR(MAX);
 
 		DROP TABLE IF EXISTS #anomalies;
@@ -61,7 +62,8 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 			extra_value         BIT DEFAULT 0,
 			to_insert           BIT DEFAULT 0, 
 			to_delete			BIT DEFAULT 0,
-			move_to				NVARCHAR (MAX)
+			move_to				NVARCHAR (MAX),
+			doppelganger		BIT DEFAULT 0
 		);
 
 		-- Table temporaire pour stocker le contenu du XML
@@ -71,58 +73,60 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 			x_code_system NVARCHAR(500)
 		);
 
-		SET @MonSQL = N'
-			DECLARE @jsonBinary VARBINARY(MAX);
-			SELECT @jsonBinary = BulkColumn
-			FROM OPENROWSET(BULK '''+@jsonSource+''', SINGLE_BLOB) AS source;
+		SET @MonSql = N'
+			DECLARE @JsonBinary VARBINARY(MAX);
+			SELECT @JsonBinary = BulkColumn
+			FROM OPENROWSET(BULK '''+@JsonSource+''', SINGLE_BLOB) AS source;
 			DECLARE @temp TABLE (val VARCHAR(MAX) COLLATE French_100_CI_AS_SC_UTF8);
-            INSERT INTO @temp (val) SELECT @jsonBinary;
-            SELECT @json = CONVERT(NVARCHAR(MAX), val) FROM @temp;					
+            INSERT INTO @temp (val) SELECT @JsonBinary;
+            SELECT @Json = CONVERT(NVARCHAR(MAX), val) FROM @temp;					
 			';
 
-		EXECUTE sp_executesql @MonSQL, N'@json NVARCHAR(MAX) OUTPUT', @json = @json OUTPUT;
+		EXECUTE sp_executesql @MonSql, N'@Json NVARCHAR(MAX) OUTPUT', @Json = @Json OUTPUT;
 		
 		--Recuperation des valeurs globales du JSON jeuxDeValeurs et du chemin de chaque fichier de mapping
-		SELECT @profile = profil,
-			   @version = version,
-			   @pathJSON = pathJSON,
-			   @pathXML = pathJSON
-		FROM OPENJSON (@json) WITH (
+		SELECT @Profile = profil,
+			   @Version = version,
+			   @PathJson = pathJSON,
+			   @PathXml = pathJSON
+		FROM OPENJSON (@Json) WITH (
 			profil NVARCHAR (MAX) '$.profile',
 			version NVARCHAR (MAX) '$.version',
 			pathJSON NVARCHAR (MAX) '$.baseDir'
 			);
 
-		SET @pathJSON = @pathJSON + '\kprocess-mapping-ans\Mappings\';
-		SET @pathXML = @pathXML + '\kprocess-mapping-ans\JeuxDeValeurs\';
+		SET @PathJson = @PathJson + '\Mappings\';
+
+		SET @PathXml = @PathXml + '\JeuxDeValeurs\';
+		
 		--Creation de curseur pour naviguer dans chaque fichier json de mapping
 		DECLARE foreach CURSOR LOCAL FAST_FORWARD
 			FOR SELECT fichier
-				FROM OPENJSON (@json, '$.mappings') WITH (fichier NVARCHAR (MAX) '$.file');
+				FROM OPENJSON (@Json, '$.mappings') WITH (fichier NVARCHAR (MAX) '$.file');
 
 		OPEN foreach;
 
-		FETCH NEXT FROM foreach INTO @nomDeFichierJSON;
+		FETCH NEXT FROM foreach INTO @NomDeFichierJson;
 
 		WHILE @@FETCH_STATUS = 0
 			BEGIN
-				SET @pathJSONfile = @pathJSON + @nomDeFichierJSON;
+				SET @PathJsonfile = @PathJson + @NomDeFichierJson;
 				--Lecture du fichier JSON specifique à chaque jeu de valeur
-				SET @MonSQL = N'
-					DECLARE @jsonBinary VARBINARY(MAX);
-					SELECT @jsonBinary = BulkColumn
-					FROM OPENROWSET(BULK ''' + @pathJSONfile + ''', SINGLE_BLOB) AS sourceJSON;
+				SET @MonSql = N'
+					DECLARE @JsonBinary VARBINARY(MAX);
+					SELECT @JsonBinary = BulkColumn
+					FROM OPENROWSET(BULK ''' + @PathJsonfile + ''', SINGLE_BLOB) AS sourceJSON;
 					DECLARE @temp TABLE (val VARCHAR(MAX) COLLATE French_100_CI_AS_SC_UTF8);
-                    INSERT INTO @temp (val) SELECT @jsonBinary;
-                    SELECT @jsonCursor = CONVERT(NVARCHAR(MAX), val) FROM @temp;		
+                    INSERT INTO @temp (val) SELECT @JsonBinary;
+                    SELECT @JsonCursor = CONVERT(NVARCHAR(MAX), val) FROM @temp;		
 					';
-				EXECUTE sp_executesql @MonSQL, N'@jsonCursor NVARCHAR(MAX) OUTPUT', @jsonCursor = @jsonCursor OUTPUT;
+				EXECUTE sp_executesql @MonSql, N'@JsonCursor NVARCHAR(MAX) OUTPUT', @JsonCursor = @JsonCursor OUTPUT;
 
 				--Lecture du fichier XML du jeu de valeur associé au JSON
-				SELECT @nomDeFichierXML = fichierXML
-				FROM   OPENJSON (@jsonCursor) WITH (fichierXML NVARCHAR (MAX) '$.jeuDeValeursANS');
+				SELECT @NomDeFichierXml = fichierXML
+				FROM   OPENJSON (@JsonCursor) WITH (fichierXML NVARCHAR (MAX) '$.jeuDeValeursANS');
 
-				SET @pathXMLfile = @pathXML + @nomDeFichierXML + '.xml';
+				SET @PathXmlFile = @PathXml + @NomDeFichierXml + '.xml';
 				
 				TRUNCATE TABLE #valeurs_xml_ans;
 
@@ -130,25 +134,24 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 				SET @MonXml = N'
 					DECLARE @xml XML;
 					SELECT @xml = CAST(BulkColumn AS XML)
-					FROM OPENROWSET(BULK '''+@pathXMLfile+''', SINGLE_BLOB) AS sourceXML;
+					FROM OPENROWSET(BULK '''+@PathXmlFile+''', SINGLE_BLOB) AS sourceXML;
 					WITH XMLNAMESPACES (''urn:ihe:iti:svs:2008'' AS ns)
 					INSERT INTO #valeurs_xml_ans (x_code, x_code_system)
 					SELECT
 						concept.value(''@code'',        ''NVARCHAR(250)'')    AS x_code,
 						concept.value(''@codeSystem'', ''NVARCHAR(500)'')  AS x_code_system
 					FROM @xml.nodes(''/ns:RetrieveValueSetResponse/ns:ValueSet/ns:ConceptList/ns:Concept'') AS ANS(concept);';
-					EXECUTE sp_executesql @MonXMl;
+					EXECUTE sp_executesql @MonXml;
 
-
-				--Assignation des valeurs specifiques du JSON aux variables @table, @jdvANS, @name et @ignoredValues
-				SELECT @table = tableName, @jdvANS = jeuDeValeursANS, @name = name, @ignoredValues = ignoredValues
-				FROM OPENJSON (@jsonCursor) WITH (
+				--Assignation des valeurs specifiques du JSON aux variables @Table, @JdvAns, @Name et @IgnoredValues
+				SELECT @Table = tableName, @JdvAns = jeuDeValeursANS, @Name = name, @IgnoredValues = ignoredValues
+				FROM OPENJSON (@JsonCursor) WITH (
 					tableName NVARCHAR (MAX) '$.tableName',
 					jeuDeValeursANS NVARCHAR (MAX) '$.jeuDeValeursANS',
 					name NVARCHAR (500) '$.name',
 					ignoredValues NVARCHAR(MAX) '$.ignoresValues' AS JSON);
 
-				SET @SQLextraValues = N'
+				SET @SqlExtraValues = N'
 					WITH recapExtraValues AS(
 						SELECT 
 							J.j_kprocess, 
@@ -159,7 +162,7 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 							COALESCE(J.is_ignored, 0) AS is_ignored,
 							K.value AS k_values, 
 							K.code AS k_code
-						FROM OPENJSON(@jsonCursor, ''$.mapping'') 
+						FROM OPENJSON(@JsonCursor, ''$.mapping'') 
 							WITH (
 								j_kprocess NVARCHAR(MAX) ''$.kprocess'', 
 								j_code NVARCHAR(MAX) ''$.code'',
@@ -168,18 +171,18 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 								j_moveTo NVARCHAR(MAX) ''$.moveTo'',
 								is_ignored BIT ''$.ignore''
 							) AS J
-						FULL JOIN ' + @server + '.' + @table + ' AS K ON K.value = J.j_kprocess
+						FULL JOIN ' + @DatabaseName + '.' + @Table + ' AS K ON K.value = J.j_kprocess
 						WHERE J.j_moveTo IS NULL)
 						INSERT INTO #anomalies (profil, version, fichier_json_name, name, table_name, jeux_de_valeurs_name,
 												j_kprocess, j_code, j_code_system,
 												k_values, k_code, is_ignored, extra_value, to_delete)
 							SELECT
-								@profile,
-								@version,
-								@nomDeFichierJSON, 
-								@name,
-								@table, 
-								@jdvANS,
+								@Profile,
+								@Version,
+								@NomDeFichierJson, 
+								@Name,
+								@Table, 
+								@JdvAns,
 								j_kprocess,
 								j_code, 
 								j_code_system,
@@ -198,22 +201,22 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 								AND is_ignored = 0
 								; 
 							';
-				EXECUTE sp_executesql @SQLextraValues, N'@jsonCursor NVARCHAR(MAX),
-														@profile NVARCHAR(MAX), 
-														@version NVARCHAR(MAX),
-														@nomDeFichierJSON NVARCHAR(MAX), 
-														@name NVARCHAR(500),
-														@table SYSNAME, 
-														@jdvANS NVARCHAR(MAX)', 
-														@jsonCursor = @jsonCursor, 
-														@profile = @profile,
-														@version = @version,
-														@nomDeFichierJSON = @nomDeFichierJSON,
-														@name = @name, 
-														@table = @table,  
-														@jdvANS = @jdvANS;
+				EXECUTE sp_executesql @SqlExtraValues, N'@JsonCursor NVARCHAR(MAX),
+														@Profile NVARCHAR(MAX), 
+														@Version NVARCHAR(MAX),
+														@NomDeFichierJson NVARCHAR(MAX), 
+														@Name NVARCHAR(500),
+														@Table SYSNAME, 
+														@JdvAns NVARCHAR(MAX)', 
+														@JsonCursor = @JsonCursor, 
+														@Profile = @Profile,
+														@Version = @Version,
+														@NomDeFichierJson = @NomDeFichierJson,
+														@Name = @Name, 
+														@Table = @Table,  
+														@JdvAns = @JdvAns;
 
-				SET @SQLtoInsert = N'
+				SET @SqlToInsert = N'
 							WITH recapToInsert AS(
 								SELECT 
 									J.j_kprocess, 
@@ -223,7 +226,7 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 									J.j_additional_values,
 									K.value AS k_values, 
 									K.code AS k_code
-								FROM OPENJSON(@jsonCursor, ''$.mapping'') 
+								FROM OPENJSON(@JsonCursor, ''$.mapping'') 
 								WITH (
 									j_kprocess NVARCHAR(MAX) ''$.kprocess'', 
 									j_code NVARCHAR(MAX) ''$.code'',
@@ -232,19 +235,19 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 									j_additional_values NVARCHAR(MAX) ''$.additionalValues'' AS JSON
 									) AS J
 						
-								FULL JOIN ' + @server + '.' + @table + ' AS K ON K.value = J.j_kprocess
+								FULL JOIN ' + @DatabaseName + '.' + @Table + ' AS K ON K.value = J.j_kprocess
 							)
 							INSERT INTO #anomalies(profil, version, fichier_json_name, name, table_name, jeux_de_valeurs_name, 
 													j_kprocess, j_code, j_code_system,
 													k_values, k_code, 
 													is_ignored, to_insert)
 								SELECT
-									@profile,
-									@version,
-									@nomDeFichierJSON, 
-									@name,
-									@table, 
-									@jdvANS,
+									@Profile,
+									@Version,
+									@NomDeFichierJson, 
+									@Name,
+									@Table, 
+									@JdvAns,
 									j_kprocess,
 									j_code, 
 									j_code_system,
@@ -258,27 +261,27 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 								FROM recapToInsert AS RTI
 								WHERE k_values IS NULL OR k_values = '''';
 							';
-				EXECUTE sp_executesql @SQLtoInsert, N'@jsonCursor NVARCHAR(MAX),
-													@profile NVARCHAR(MAX), 
-													@version NVARCHAR(MAX),
-													@nomDeFichierJSON NVARCHAR(MAX), 
-													@name NVARCHAR(500),
-													@table SYSNAME, 
-													@jdvANS NVARCHAR(MAX)', 
-													@jsonCursor = @jsonCursor, 
-													@profile = @profile,
-													@version = @version,
-													@nomDeFichierJSON = @nomDeFichierJSON,
-													@name = @name, 
-													@table = @table,  
-													@jdvANS = @jdvANS;
+				EXECUTE sp_executesql @SqlToInsert, N'@JsonCursor NVARCHAR(MAX),
+													@Profile NVARCHAR(MAX), 
+													@Version NVARCHAR(MAX),
+													@NomDeFichierJson NVARCHAR(MAX), 
+													@Name NVARCHAR(500),
+													@Table SYSNAME, 
+													@JdvAns NVARCHAR(MAX)', 
+													@JsonCursor = @JsonCursor, 
+													@Profile = @Profile,
+													@Version = @Version,
+													@NomDeFichierJson = @NomDeFichierJson,
+													@Name = @Name, 
+													@Table = @Table,  
+													@JdvAns = @JdvAns;
 
-				SET @SQLtoMap = N'
+				SET @SqlToMap = N'
 					WITH recapIgnoresValues AS (
 						SELECT 
 							i_code, 
 							i_code_system
-						FROM OPENJSON(@ignoredValues)
+						FROM OPENJSON(@IgnoredValues)
 						WITH (
 							i_code NVARCHAR(MAX) ''$.code'',
 							i_code_system NVARCHAR(500) ''$.codeSystem''
@@ -288,7 +291,7 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 						SELECT 
 							ADV.adv_code,
 							ADV.adv_code_system
-						FROM OPENJSON(@jsonCursor, ''$.mapping'') 
+						FROM OPENJSON(@JsonCursor, ''$.mapping'') 
 						WITH (
 							j_additional_values NVARCHAR(MAX) ''$.additionalValues'' AS JSON
 						) AS J
@@ -309,7 +312,7 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 							X.x_code_system,
 							I.i_code,
 							ADV.adv_code
-						FROM OPENJSON(@jsonCursor, ''$.mapping'') 
+						FROM OPENJSON(@JsonCursor, ''$.mapping'') 
 						WITH (
 							j_kprocess NVARCHAR(MAX) ''$.kprocess'', 
 							j_code NVARCHAR(MAX) ''$.code'',
@@ -325,12 +328,12 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 											x_code, x_code_system,
 											value_to_map)
 						SELECT
-							@profile,
-							@version,
-							@nomDeFichierJSON, 
-							@name,
-							@table, 
-							@jdvANS,
+							@Profile,
+							@Version,
+							@NomDeFichierJson, 
+							@Name,
+							@Table, 
+							@JdvAns,
 							j_kprocess,
 							j_code, 
 							j_code_system,							
@@ -350,49 +353,49 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 						WHERE 
 							(j_kprocess IS NULL OR j_code='''') 
 							AND x_code IS NOT NULL;';
-				EXECUTE sp_executesql @SQLtoMap, N'@jsonCursor NVARCHAR(MAX),
-													@profile NVARCHAR(MAX), 
-													@version NVARCHAR(MAX),
-													@nomDeFichierJSON NVARCHAR(MAX), 
-													@name NVARCHAR(500),
-													@table SYSNAME, 
-													@jdvANS NVARCHAR(MAX), 
-													@ignoredValues NVARCHAR(MAX)',
-													@jsonCursor = @jsonCursor, 
-													@profile = @profile,
-													@version = @version,
-													@nomDeFichierJSON = @nomDeFichierJSON,
-													@name = @name, 
-													@table = @table,  
-													@jdvANS = @jdvANS,
-													@ignoredValues = @ignoredValues;
+				EXECUTE sp_executesql @SqlToMap, N'@JsonCursor NVARCHAR(MAX),
+													@Profile NVARCHAR(MAX), 
+													@Version NVARCHAR(MAX),
+													@NomDeFichierJson NVARCHAR(MAX), 
+													@Name NVARCHAR(500),
+													@Table SYSNAME, 
+													@JdvAns NVARCHAR(MAX), 
+													@IgnoredValues NVARCHAR(MAX)',
+													@JsonCursor = @JsonCursor, 
+													@Profile = @Profile,
+													@Version = @Version,
+													@NomDeFichierJson = @NomDeFichierJson,
+													@Name = @Name, 
+													@Table = @Table,  
+													@JdvAns = @JdvAns,
+													@IgnoredValues = @IgnoredValues;
 
-				SET @SQLmoveTo = N'
+				SET @SqlMoveTo = N'
 					WITH recapToMove AS(
 						SELECT 
 							J.j_kprocess,
 							J.j_moveTo,
 							K.value AS k_values, 
 							K.code AS k_code
-						FROM OPENJSON(@jsonCursor, ''$.mapping'') 
+						FROM OPENJSON(@JsonCursor, ''$.mapping'') 
 						WITH (
 							j_kprocess NVARCHAR(MAX) ''$.kprocess'',
 							j_moveTo NVARCHAR(MAX) ''$.moveTo''
 							) AS J
-						FULL JOIN ' + @server + '.' + @table + ' AS K ON K.value = J.j_kprocess
-						LEFT JOIN ' + @server + '.' + @table + ' AS K2 ON K.value = j_moveTo
+						FULL JOIN ' + @DatabaseName + '.' + @Table + ' AS K ON K.value = J.j_kprocess
+						LEFT JOIN ' + @DatabaseName + '.' + @Table + ' AS K2 ON K.value = j_moveTo
 						)
 							INSERT INTO #anomalies(profil, version, fichier_json_name, name, table_name, jeux_de_valeurs_name, 
 													j_kprocess,
 													k_values, k_code, 
 													move_to)
 								SELECT
-									@profile,
-									@version,
-									@nomDeFichierJSON, 
-									@name,
-									@table, 
-									@jdvANS,
+									@Profile,
+									@Version,
+									@NomDeFichierJson, 
+									@Name,
+									@Table, 
+									@JdvAns,
 									j_kprocess,
 									k_values,
 									k_code,
@@ -400,25 +403,68 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 								FROM recapToMove AS RTM
 								WHERE j_moveTo IS NOT NULL;				
 								';
-				EXECUTE sp_executesql @SQLmoveTo, N'@jsonCursor NVARCHAR(MAX),
-													@profile NVARCHAR(MAX), 
-													@version NVARCHAR(MAX),
-													@nomDeFichierJSON NVARCHAR(MAX), 
-													@name NVARCHAR(500),
-													@table SYSNAME, 
-													@jdvANS NVARCHAR(MAX), 
-													@ignoredValues NVARCHAR(MAX)',
-													@jsonCursor = @jsonCursor, 
-													@profile = @profile,
-													@version = @version,
-													@nomDeFichierJSON = @nomDeFichierJSON,
-													@name = @name, 
-													@table = @table,  
-													@jdvANS = @jdvANS,
-													@ignoredValues = @ignoredValues;
+				EXECUTE sp_executesql @SqlMoveTo, N'@JsonCursor NVARCHAR(MAX),
+													@Profile NVARCHAR(MAX), 
+													@Version NVARCHAR(MAX),
+													@NomDeFichierJson NVARCHAR(MAX), 
+													@Name NVARCHAR(500),
+													@Table SYSNAME, 
+													@JdvAns NVARCHAR(MAX), 
+													@IgnoredValues NVARCHAR(MAX)',
+													@JsonCursor = @JsonCursor, 
+													@Profile = @Profile,
+													@Version = @Version,
+													@NomDeFichierJson = @NomDeFichierJson,
+													@Name = @Name, 
+													@Table = @Table,  
+													@JdvAns = @JdvAns,
+													@IgnoredValues = @IgnoredValues;
+
+				SET @SqlDoppelganger = N'
+					WITH recapDoppelganger AS(
+						SELECT 
+							J.j_kprocess,
+							COUNT(*) AS nbDoublon
+						FROM OPENJSON(@JsonCursor, ''$.mapping'') 
+						WITH (
+							j_kprocess NVARCHAR(MAX) ''$.kprocess'',
+							j_code NVARCHAR
+							) AS J
+						GROUP BY J.j_kprocess)
+
+						INSERT INTO #anomalies(profil, version, fichier_json_name, name, table_name, jeux_de_valeurs_name, 
+													j_kprocess,
+													doppelganger)
+								SELECT
+									@Profile,
+									@Version,
+									@NomDeFichierJson, 
+									@Name,
+									@Table, 
+									@JdvAns,
+									j_kprocess,
+									CASE WHEN nbDoublon > 1 THEN 1 ELSE 0 END							
+								FROM recapDoppelganger AS RDG
+								WHERE nbDoublon > 1 AND j_kprocess !='''';
+				';
 
 
-				FETCH NEXT FROM foreach INTO @nomDeFichierJSON;
+				EXECUTE sp_executesql @SqlDoppelganger, N'@JsonCursor NVARCHAR(MAX),
+													@Profile NVARCHAR(MAX), 
+													@Version NVARCHAR(MAX),
+													@NomDeFichierJson NVARCHAR(MAX), 
+													@Name NVARCHAR(500),
+													@Table SYSNAME, 
+													@JdvAns NVARCHAR(MAX)', 
+													@JsonCursor = @JsonCursor, 
+													@Profile = @Profile,
+													@Version = @Version,
+													@NomDeFichierJson = @NomDeFichierJson,
+													@Name = @Name, 
+													@Table = @Table,  
+													@JdvAns = @JdvAns;
+
+				FETCH NEXT FROM foreach INTO @NomDeFichierJson;
 			END
 
 		CLOSE foreach;
