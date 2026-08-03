@@ -2,7 +2,7 @@
   "name": "Score OMS",
   "description": "Indice de performance status (O.M.S.)",
   "tableName": "dbo.fiches_rcp_v1_capacite_oms_enum",
-  "jeuDeValeursANS": "jdv-score-performance-ecog-cisis",
+  "jeuDeValeursANS": "JdvScorePerformanceEcogCisis",
   "mapping": [
     {
       "kprocess": "OMS_0",

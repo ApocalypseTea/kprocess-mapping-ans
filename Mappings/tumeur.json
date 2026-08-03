@@ -2,7 +2,7 @@
   "name": "tumeurs",
   "description": "Codes CIM-10 des tumeurs",
   "tableName": "dbo.tumeur_enum",
-  "jeuDeValeursANS": "jdv-tumeur-cisis",
+  "jeuDeValeursANS": "JdvTumeurCisis",
   "mapping": [
     {
       "kprocess": "B211",
