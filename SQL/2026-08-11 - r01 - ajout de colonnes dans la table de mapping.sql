@@ -160,7 +160,9 @@ AS BEGIN
 								 kprocess_label = S.kprocess_label
 	WHEN NOT MATCHED AND S.ans_jeu_de_valeur_valeur_ref IS NOT NULL THEN INSERT(profil_version_ref, kprocess_jeu_de_valeur_ref, kprocess_value, kprocess_id, kprocess_label, ans_jeu_de_valeur_valeur_ref, for_import) 
 						  VALUES(@ProfilVersionID, @KProcessJeuValeurID, S.kprocess_value, S.kprocess_id, S.kprocess_label, S.ans_jeu_de_valeur_valeur_ref, S.for_import)
-	WHEN NOT MATCHED BY SOURCE THEN DELETE;
+	WHEN NOT MATCHED BY SOURCE AND 
+			kprocess_jeu_de_valeur_ref = @KProcessJeuValeurID AND 
+			profil_version_ref = @ProfilVersionID THEN DELETE;
 END
 
 GO
