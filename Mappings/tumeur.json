@@ -1,5 +1,5 @@
 {
-  "name": "tumeurs",
+  "name": "Tumeur",
   "description": "Codes CIM-10 des tumeurs",
   "tableName": "dbo.tumeur_enum",
   "jeuDeValeursANS": "JdvTumeurCisis",
