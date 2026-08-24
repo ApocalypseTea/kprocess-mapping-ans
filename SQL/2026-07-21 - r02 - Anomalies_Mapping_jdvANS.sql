@@ -1,11 +1,3 @@
-USE [OncoPC_DCC_test]
-GO
-
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
 
 CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 	--@JsonSource = path du fichier jeuxDeValeurs.json
@@ -39,6 +31,8 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 		DECLARE @PathXml AS NVARCHAR(MAX);
 		DECLARE @PathXmlFile AS NVARCHAR(MAX);
 		DECLARE @MonXml AS NVARCHAR(MAX);
+		DECLARE @XmlTable AS TABLE(nom VARCHAR(250), filename VARCHAR(500), xml NVARCHAR(MAX));
+		DECLARE @XmlCursor AS NVARCHAR (MAX);
 
 		DROP TABLE IF EXISTS #anomalies;
 		CREATE TABLE #anomalies (
@@ -98,7 +92,40 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 		SET @PathJson = @PathJson + '\Mappings\';
 
 		SET @PathXml = @PathXml + '\JeuxDeValeurs\';
-		
+				
+		-- Creation de curseur pour naviguer dans chaque fichier XML de l'ANS
+		DECLARE foreachANS CURSOR LOCAL FAST_FORWARD
+			FOR SELECT fichier
+				FROM OPENJSON (@Json, '$.jeuxDeValeursANS') WITH (fichier NVARCHAR (MAX) '$.file');
+
+		OPEN foreachANS;
+
+		FETCH NEXT FROM foreachANS INTO @NomDeFichierXml;
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			SET @PathXmlfile = @PathXml + @NomDeFichierXml;
+			--Lecture du fichier XML SON specifique à chaque jeu de valeur
+			SET @MonSql = N'
+				DECLARE @XmlBinary VARBINARY(MAX);
+				SELECT @XmlBinary = BulkColumn
+				FROM OPENROWSET(BULK ''' + @PathXmlfile + ''', SINGLE_BLOB) AS sourceXML;
+				DECLARE @temp TABLE (val VARCHAR(MAX) COLLATE French_100_CI_AS_SC_UTF8);
+				INSERT INTO @temp (val) SELECT @XmlBinary;
+				SELECT @XmlCursor = CONVERT(NVARCHAR(MAX), val) FROM @temp;		
+				';
+
+			PRINT 'Chargement fichier XML ' + @PathXmlFile;
+			EXECUTE sp_executesql @MonSql, N'@XmlCursor NVARCHAR(MAX) OUTPUT', @XmlCursor = @XmlCursor OUTPUT;			
+
+			WITH XMLNAMESPACES ('urn:ihe:iti:svs:2008' AS ns)
+			INSERT INTO @XmlTable(nom, filename) 
+			SELECT
+				CONVERT(XML, @XmlCursor).value('(/ns:RetrieveValueSetResponse/ns:ValueSet/@ns:name)[1]', 'NVARCHAR(500)'),
+				@PathXmlfile
+			FETCH NEXT FROM foreachANS INTO @NomDeFichierXml;
+		END
+
+
 		--Creation de curseur pour naviguer dans chaque fichier json de mapping
 		DECLARE foreach CURSOR LOCAL FAST_FORWARD
 			FOR SELECT fichier
@@ -123,10 +150,14 @@ CREATE OR ALTER PROCEDURE dbo.comparer_mapping_KProcess_ANS
 				EXECUTE sp_executesql @MonSql, N'@JsonCursor NVARCHAR(MAX) OUTPUT', @JsonCursor = @JsonCursor OUTPUT;
 
 				--Lecture du fichier XML du jeu de valeur associé au JSON
-				SELECT @NomDeFichierXml = fichierXML
-				FROM   OPENJSON (@JsonCursor) WITH (fichierXML NVARCHAR (MAX) '$.jeuDeValeursANS');
+				--SELECT @NomDeFichierXml = fichierXML
+				--FROM   OPENJSON (@JsonCursor) WITH (fichierXML NVARCHAR (MAX) '$.jeuDeValeursANS');
+				SELECT @nomDeFichierXml = X.filename
+					FROM @XmlTable AS X,
+						OPENJSON (@JsonCursor) WITH (fichierXML NVARCHAR (MAX) '$.jeuDeValeursANS') AS J
+					WHERE X.nom = J.fichierXML
 
-				SET @PathXmlFile = @PathXml + @NomDeFichierXml + '.xml';
+				SET @PathXmlFile = @PathXml + @NomDeFichierXml --+ '.xml';
 				
 				TRUNCATE TABLE #valeurs_xml_ans;
 
