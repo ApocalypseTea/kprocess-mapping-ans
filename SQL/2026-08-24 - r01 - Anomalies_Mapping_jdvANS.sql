@@ -1,5 +1,3 @@
-USE [OncoPC_DCC_test]
-GO
 
 SET ANSI_NULLS ON
 GO
