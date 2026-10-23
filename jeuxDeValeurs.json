@@ -1,7 +1,7 @@
 {
     "profile": "FicheRCP",
     "version": "2025.1",
-    "baseDir": "C:\\Users\\Public\\Documents\\kprocess-mapping-ans",
+    "baseDir": "D:\\Data\\ReseauOnco\\AAP",
   "jeuxDeValeursANS": [
     {
       "name": "jdv-modificateur-topographique-cisis",
@@ -36,8 +36,8 @@
       "file": "jdv-traitement-soins-frcp-cisis.xml"
     },
     {
-      "name": "jdv-tumeur-cisis",
-      "file": "jdv-tumeur-cisis.xml"
+      "name": "JdvTumeurCisis",
+      "file": "JdvTumeurCisis.xml"
     },
     {
       "name": "jdv-type-traitement-frcp-cisis",
@@ -69,6 +69,7 @@
     }
   ],
     "mappings": [
+      { "file": "tumeur.json"},
       { "file": "titre.json" },
       { "file": "phaseCancer.json" },
       { "file": "appareil.json" },
@@ -78,8 +79,9 @@
       { "file": "specialiteMedicale.json" },
       { "file": "etablissementTypeCode.json" },
       { "file": "etablissementPracticeSettings.json" },
-      { "file": "genre.json" },
-      { "file": "tumeur.json" },
+      { "file": "genre.json" },      
       { "file": "relationPatient.json"}
+      { "file": "lateralite.json" },
+      { "file": "cim-o.json"}
     ]
 } 

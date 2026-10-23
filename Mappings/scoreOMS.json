@@ -1,7 +1,7 @@
 {
   "name": "ScoreOMS",
   "description": "Indice de performance status (O.M.S.)",
-  "tableName": "dbo.fiches_rcp_v1_capacite_oms_enum",
+  "tableName": "META:ActiviteOMS",
   "jeuDeValeursANS": "jdv-score-performance-ecog-cisis",
   "mapping": [
     {
