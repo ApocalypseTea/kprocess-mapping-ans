@@ -1,0 +1,18 @@
+{
+  "name": "Lateralite",
+  "description": "Latéralité",
+  "tableName": "dbo.dossiers_lateralite_enum",
+  "jeuDeValeursANS": "jdv-modificateur-topographique-cisis",
+  "mapping": [
+    {
+      "kprocess": "Droite",
+      "code": "24028007",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    },
+    {
+      "kprocess": "Gauche",
+      "code": "7771000",
+      "codeSystem": "2.16.840.1.113883.6.96"
+    }    
+  ]
+}
